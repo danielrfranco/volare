@@ -1,15 +1,12 @@
-const reservations = (state = [], action) => {
+const cities = (state = [], action) => {
   switch (action.type) {
     case 'CREATE_CITIES':
-      return {
-        ...state,
-        cities: [
-          ...action.cities,
-        ],
-      };
+      return [
+        ...action.cities,
+      ];
     default:
       return state;
   }
 };
 
-export default reservations;
+export default cities;
