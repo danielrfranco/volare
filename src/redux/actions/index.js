@@ -6,7 +6,7 @@ export const populateDestinations = (destinations) => ({
 export const createReservation = (reservation) => ({
   type: 'CREATE_RESERVATION',
   origin: reservation.origin,
-  destiny: reservation.destiny,
-  time: reservation.time,
+  destination: reservation.destination,
+  date: reservation.date,
   seats: reservation.seats,
 });

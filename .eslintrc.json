@@ -22,6 +22,7 @@
         "react/jsx-props-no-spreading": "off",
         "react/require-default-props": "off",
         "no-unused-vars": "warn",
-        "jsx-a11y/label-has-associated-control": "off"
+        "jsx-a11y/label-has-associated-control": "off",
+        "react/forbid-prop-types": "off"
     }
 }

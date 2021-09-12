@@ -15,6 +15,10 @@ $mobile: 478px;
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap');
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   color: var(--black);
@@ -24,6 +28,13 @@ body {
 
 a {
   color: inherit;
+}
+
+button {
+  border: none;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .logo {
@@ -99,7 +110,12 @@ a {
     padding: 0 1rem;
     cursor: pointer;
     flex-grow: 1;
+    padding: 1rem 0;
+    &:disabled {
+      opacity: 0.5;
+    }
   }
 }
 
 @import "home";
+@import "search";

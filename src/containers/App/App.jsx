@@ -6,11 +6,14 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Link,
 } from 'react-router-dom';
 
 import Home from '../Home/Home';
+import Search from '../Search/Search';
 import { populateDestinations } from '../../redux/actions';
 import { NavBar } from '../../components';
+import * as URLS from '../../urls';
 
 import Logo from '../../images/logo_white.png';
 
@@ -36,18 +39,20 @@ const App = ({ dispatch }) => {
     <div className="app">
       <Router>
         <div className="container">
-          <img src={Logo} alt="Volare" className="logo" />
+          <Link to={URLS.BASE}>
+            <img src={Logo} alt="Volare" className="logo" />
+          </Link>
         </div>
         <NavBar />
 
         <Switch>
-          <Route path="/search-results">
-            results
+          <Route path={URLS.SEARCH}>
+            <Search />
           </Route>
           <Route path="/buy">
-            buy
+            <Search />
           </Route>
-          <Route path="/">
+          <Route path={URLS.BASE}>
             <Home />
           </Route>
         </Switch>

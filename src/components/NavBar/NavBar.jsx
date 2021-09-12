@@ -11,14 +11,7 @@ import NavLink from '../NavLink/NavLink';
 
 const NavBar = () => (
   <div className="navbar container">
-    <NavLink href="#">
-      <LocalOfferIcon />
-      Ofertas
-    </NavLink>
-    <NavLink href="#">
-      <WorkIcon />
-      Hotel + Vuelo
-    </NavLink>
+
     <NavLink href="#">
       <HotelIcon />
       Hoteles
@@ -35,10 +28,7 @@ const NavBar = () => (
       <AirportShuttleIcon />
       Traslados
     </NavLink>
-    <NavLink href="#">
-      <DriveEtaIcon />
-      Autos
-    </NavLink>
+
   </div>
 );
 

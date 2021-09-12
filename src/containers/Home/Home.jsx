@@ -1,14 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import {
   Formik, Field, Form, ErrorMessage,
 } from 'formik';
 import * as Yup from 'yup';
+import { createReservation } from '../../redux/actions';
 import { DatePickerField } from '../../components';
 import homeBlur from '../../images/home-blur.png';
 
-const Home = ({ destinations = [] }) => (
+import * as URLS from '../../urls';
+
+const Home = ({ dispatch, history, destinations = [] }) => (
   <div className="home">
 
     <div className="form-wrapper">
@@ -18,10 +22,10 @@ const Home = ({ destinations = [] }) => (
 
         <Formik
           initialValues={{
-            origin: '', destination: '', passengers: 1, date: '',
+            origin: '', destination: '', seats: 1, date: '',
           }}
           validationSchema={Yup.object({
-            passengers: Yup.number()
+            seats: Yup.number()
               .min(1, 'Debe ser al menos 1')
               .required('Requerido'),
             origin: Yup.string().required('Requerido'),
@@ -29,52 +33,54 @@ const Home = ({ destinations = [] }) => (
             date: Yup.date().required('Requerido'),
           })}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+            dispatch(createReservation(values));
+            setSubmitting(false);
+            history.push(URLS.SEARCH);
           }}
         >
-          <Form className="home-form">
-            <div className="inputs-wrapper">
-              <label>
-                Origen
-                <Field name="origin" as="select">
-                  <option value="">Selecciona ciudad</option>
-                  {destinations.map((destination) => (
-                    <option value={`${destination.city}, ${destination.country}`}>{`${destination.city}, ${destination.country}`}</option>
-                  ))}
-                </Field>
-                <ErrorMessage name="origin" />
-              </label>
+          {({ isSubmitting }) => (
 
-              <label>
-                Destino
-                <Field name="destination" as="select">
-                  <option value="">Selecciona ciudad</option>
-                  {destinations.map((destination) => (
-                    <option value={`${destination.city}, ${destination.country}`}>{`${destination.city}, ${destination.country}`}</option>
-                  ))}
-                </Field>
-                <ErrorMessage name="destination" />
-              </label>
+            <Form className="home-form">
+              <div className="inputs-wrapper">
+                <label>
+                  Origen
+                  <Field name="origin" as="select">
+                    <option value="">Selecciona ciudad</option>
+                    {destinations.map((destination) => (
+                      <option value={`${destination.city}, ${destination.country}`}>{`${destination.city}, ${destination.country}`}</option>
+                    ))}
+                  </Field>
+                  <ErrorMessage name="origin" />
+                </label>
 
-              <label>
-                Pasajeros
-                <Field name="passengers" type="number" min={1} />
-                <ErrorMessage name="passengers" />
-              </label>
+                <label>
+                  Destino
+                  <Field name="destination" as="select">
+                    <option value="">Selecciona ciudad</option>
+                    {destinations.map((destination) => (
+                      <option value={`${destination.city}, ${destination.country}`}>{`${destination.city}, ${destination.country}`}</option>
+                    ))}
+                  </Field>
+                  <ErrorMessage name="destination" />
+                </label>
 
-              <label>
-                Fecha de vuelo
-                <DatePickerField name="date" minDate={new Date()} />
-                <ErrorMessage name="date" />
-              </label>
+                <label>
+                  Pasajeros
+                  <Field name="seats" type="number" min={1} />
+                  <ErrorMessage name="seats" />
+                </label>
 
-              <button type="submit" className="submit">Buscar</button>
-            </div>
+                <label>
+                  Fecha de vuelo
+                  <DatePickerField name="date" minDate={new Date()} />
+                  <ErrorMessage name="date" />
+                </label>
 
-          </Form>
+                <button type="submit" className="submit" disabled={isSubmitting}>Buscar</button>
+              </div>
+
+            </Form>
+          )}
         </Formik>
 
       </div>
@@ -90,10 +96,12 @@ Home.propTypes = {
     country: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
   })),
+  dispatch: PropTypes.func,
+  history: PropTypes.any,
 };
 
 const mapStateToProps = ({ destinations }) => ({
   destinations,
 });
 
-export default connect(mapStateToProps)(Home);
+export default withRouter(connect(mapStateToProps)(Home));
