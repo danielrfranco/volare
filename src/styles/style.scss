@@ -1,18 +1,46 @@
+$large-desktop: 1440px;
+$desktop: 1280px;
+$tablet: 991px;
+$mobile-landscape: 767px;
+$mobile: 478px;
+
 :root {
-  --black: #01000e;
+  --black: #142d4c;
+  --white: #fffdf9;
+  --sand: #fffde7; 
+  --palm: #ffd79a; 
+  --water: #73b9d7; 
+  --foam: #9de6e8; 
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap');
+
 body {
+  font-family: 'Open Sans', sans-serif;
   color: var(--black);
+  background-color: var(--white);
+  margin: 0;
 }
 
 a {
   color: inherit;
 }
 
+.logo {
+  width: 200px;
+  margin-top: 0.5rem;
+}
+
+.container {
+ width: 88%;
+ margin-left: auto;
+ margin-right: auto;
+}
+
 .navbar {
   display: flex;
   gap: 1rem;
+  padding: 1rem 0;
 
   .navlink {
     display: flex;
@@ -20,10 +48,58 @@ a {
     align-items: center;
     text-decoration: none;
     padding: 0.5rem;
-    border-radius: 0.8rem;
+    border-radius: 0.6rem;
     border: solid 1px transparent;
     &:hover {
       border-color: var(--black);
     }
   }
 }
+
+.inputs-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  @media (min-width: $tablet) {
+    flex-direction: row;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    border: solid 1px var(--black);
+    border-radius: 0.6rem;
+    min-height: 3rem;
+    padding: 0.5rem;
+    font-weight: bold;
+  }
+  
+  input,
+  select {
+    margin-top: 0.5rem;
+    border: none;
+    font-size: 1.2rem;
+  }
+  select {
+    width: 100%;
+    max-width: 22rem;
+  }
+  input[type=number] {
+    width: 100%;
+    max-width: 5rem;
+  }
+
+  .submit {
+    border-radius: 0.6rem;
+    border: none;
+    color: var(--white);
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: var(--water);
+    padding: 0 1rem;
+    cursor: pointer;
+    flex-grow: 1;
+  }
+}
+
+@import "home";

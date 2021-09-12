@@ -6,7 +6,7 @@ const reservations = (state = [], action) => {
         reservation: {
           origin: action.origin,
           destiny: action.destiny,
-          time: action.time,
+          date: action.date,
           seats: action.seats,
         },
       };

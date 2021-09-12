@@ -10,7 +10,7 @@ import DriveEtaIcon from '@material-ui/icons/DriveEta';
 import NavLink from '../NavLink/NavLink';
 
 const NavBar = () => (
-  <div className="navbar">
+  <div className="navbar container">
     <NavLink href="#">
       <LocalOfferIcon />
       Ofertas

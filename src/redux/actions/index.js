@@ -1,6 +1,6 @@
-export const populateCities = (cities) => ({
-  type: 'CREATE_CITIES',
-  cities,
+export const populateDestinations = (destinations) => ({
+  type: 'CREATE_DESTINATIONS',
+  destinations,
 });
 
 export const createReservation = (reservation) => ({
