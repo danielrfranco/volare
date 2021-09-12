@@ -2,6 +2,11 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
 import { populateCities } from '../../redux/actions';
 import { NavBar } from '../../components';
 
@@ -22,7 +27,22 @@ const App = ({ dispatch }) => {
 
   return (
     <div className="app">
-      <NavBar />
+      <Router>
+        <NavBar />
+
+        <Switch>
+          <Route path="/home">
+            home
+          </Route>
+          <Route path="/search-results">
+            results
+          </Route>
+          <Route path="/buy">
+            buy
+          </Route>
+        </Switch>
+
+      </Router>
     </div>
   );
 };
