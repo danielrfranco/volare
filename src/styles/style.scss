@@ -48,6 +48,26 @@ button {
  margin-right: auto;
 }
 
+.head {
+  display: flex;
+  justify-content: space-between;
+
+  .cart {
+    position: relative;
+
+    .counter {
+      position: absolute;
+      top: 1rem;
+      right: 0rem;
+      border: solid 1px;
+      border-radius: 50%;
+      width: 1rem;
+      height: 1rem;
+      background-color: var(--white);
+    }
+  }
+}
+
 .navbar {
   display: flex;
   gap: 1rem;

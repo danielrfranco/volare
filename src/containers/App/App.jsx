@@ -12,7 +12,7 @@ import {
 import Home from '../Home/Home';
 import Search from '../Search/Search';
 import { populateDestinations } from '../../redux/actions';
-import { NavBar } from '../../components';
+import { NavBar, Cart } from '../../components';
 import * as URLS from '../../urls';
 
 import Logo from '../../images/logo_white.png';
@@ -38,11 +38,14 @@ const App = ({ dispatch }) => {
   return (
     <div className="app">
       <Router>
-        <div className="container">
-          <Link to={URLS.HOME}>
-            <img src={Logo} alt="Volare" className="logo" />
-          </Link>
-        </div>
+        <header className="container">
+          <div className="head">
+            <Link to={URLS.HOME}>
+              <img src={Logo} alt="Volare" className="logo" />
+            </Link>
+            <Cart />
+          </div>
+        </header>
         <NavBar />
 
         <Switch>
