@@ -127,11 +127,17 @@ button {
   }
   select {
     width: 100%;
-    max-width: 22rem;
+    @media (min-width: $tablet) {
+      max-width: 22rem;
+    }
+  }
+  input {
+    width: 100%;
   }
   input[type=number] {
-    width: 100%;
-    max-width: 5rem;
+    @media (min-width: $tablet) {
+      max-width: 5rem;
+    }
   }
 
   .submit {
