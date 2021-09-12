@@ -18,7 +18,7 @@ import * as URLS from '../../urls';
 
 import Logo from '../../images/logo_white.png';
 
-const App = ({ reservationsCart, dispatch }) => {
+const App = ({ reservationsCart = [], dispatch }) => {
   useEffect(async () => {
     const getDestinations = async () => {
       try {
@@ -73,8 +73,8 @@ App.propTypes = {
   reservationsCart: PropTypes.array,
 };
 
-const mapStateToProps = (({ reservationsCart }) => ({
-  reservationsCart,
+const mapStateToProps = (({ order }) => ({
+  reservationsCart: order.reservationsCart,
 }));
 
 export default connect(mapStateToProps)(App);

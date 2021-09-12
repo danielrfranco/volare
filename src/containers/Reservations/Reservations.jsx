@@ -11,7 +11,11 @@ import {
 import * as Yup from 'yup';
 import { removeReservationFromCart } from '../../redux/actions';
 
-const Reservations = ({ dispatch, reservationsCart = [] }) => {
+const Reservations = ({
+  dispatch,
+  order,
+}) => {
+  const { reservationsCart = [] } = order;
   const dateOptions = {
     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
   };
@@ -154,12 +158,12 @@ const Reservations = ({ dispatch, reservationsCart = [] }) => {
 };
 
 Reservations.propTypes = {
-  reservationsCart: PropTypes.array,
+  order: PropTypes.object,
   dispatch: PropTypes.func,
 };
 
-const mapStateToProps = (({ reservationsCart }) => ({
-  reservationsCart,
+const mapStateToProps = (({ order }) => ({
+  order,
 }));
 
 export default withRouter(connect(mapStateToProps)(Reservations));
