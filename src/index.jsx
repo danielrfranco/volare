@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { App } from './containers';
 import reportWebVitals from './reportWebVitals';
 import rootReducer from './redux/reducers';
+import './styles/style.css';
 
 const store = createStore(
   rootReducer,

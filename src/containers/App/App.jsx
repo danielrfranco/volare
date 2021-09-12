@@ -12,7 +12,6 @@ const App = ({ dispatch }) => {
         const citiesResponse = await axios.get('https://restcountries.eu/rest/v2/region/americas?fields=name;capital');
         return citiesResponse.data;
       } catch (error) {
-        console.log(error);
         return 0;
       }
     };
@@ -22,7 +21,7 @@ const App = ({ dispatch }) => {
   }, []);
 
   return (
-    <div>
+    <div className="app">
       <NavBar />
     </div>
   );
