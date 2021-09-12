@@ -116,9 +116,13 @@ const Search = ({ history, dispatch, reservation }) => {
                   </div>
 
                   <div className="price">
-                    MXN$
-                    {' '}
-                    <span>{toMoney(flight.price)}</span>
+                    <div className="amout">
+                      MXN$
+                      {' '}
+                      <span>{toMoney(flight.price)}</span>
+                      {' '}
+                      c/u
+                    </div>
                   </div>
                 </div>
               ))}

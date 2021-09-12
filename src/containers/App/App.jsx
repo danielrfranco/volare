@@ -11,13 +11,14 @@ import {
 
 import Home from '../Home/Home';
 import Search from '../Search/Search';
+import Reservations from '../Reservations/Reservations';
 import { populateDestinations } from '../../redux/actions';
 import { NavBar, Cart } from '../../components';
 import * as URLS from '../../urls';
 
 import Logo from '../../images/logo_white.png';
 
-const App = ({ dispatch }) => {
+const App = ({ reservationsCart, dispatch }) => {
   useEffect(async () => {
     const getDestinations = async () => {
       try {
@@ -43,7 +44,9 @@ const App = ({ dispatch }) => {
             <Link to={URLS.HOME}>
               <img src={Logo} alt="Volare" className="logo" />
             </Link>
-            <Cart />
+            <Link to={URLS.RESERVATIONS}>
+              <Cart items={reservationsCart.length} />
+            </Link>
           </div>
         </header>
         <NavBar />
@@ -52,8 +55,8 @@ const App = ({ dispatch }) => {
           <Route path={URLS.SEARCH}>
             <Search />
           </Route>
-          <Route path="/buy">
-            <Search />
+          <Route path={URLS.RESERVATIONS}>
+            <Reservations />
           </Route>
           <Route path={URLS.HOME}>
             <Home />
@@ -67,6 +70,11 @@ const App = ({ dispatch }) => {
 
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  reservationsCart: PropTypes.array,
 };
 
-export default connect()(App);
+const mapStateToProps = (({ reservationsCart }) => ({
+  reservationsCart,
+}));
+
+export default connect(mapStateToProps)(App);

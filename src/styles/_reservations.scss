@@ -1,0 +1,80 @@
+.reservations {
+
+  .reservations-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: flex-start;
+    @media (min-width: $tablet) {
+      grid-template-columns: 1fr 0.5fr;
+    }
+  }
+
+
+  .my-reservations {
+
+    .flights {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+
+    .small {
+      font-size: 0.7rem;
+    }
+    
+  }
+  
+  .detail {
+    padding: 3rem 1.5rem;
+    background-color: var(--black);
+    color: var(--white);
+    border-radius: 0.6rem;
+    display: flex;
+    flex-direction: column;
+
+    .total {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      border-bottom: solid 1px;
+      padding-bottom: 1.5rem;
+      .text {
+        font-size: 1.5rem;
+      }
+      .amount {
+        font-size: 1.2rem;
+        span {
+          font-size: 1.7rem;
+          font-weight: bold;
+        }
+      }
+    }
+    
+    h3 {
+      margin-bottom: 1.5rem;
+    }
+    
+    label {
+      width: 100%;
+      max-width: 100%;
+      color: var(--black);
+      background-color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .submit {
+      background-color: var(--foam);
+      padding: 1rem 1.5rem;
+      margin-top: 1rem;
+      margin-left: auto;
+      display: block;
+      font-size: 1.4rem;
+      transition: transform 0.3s;
+      &:hover {
+        transform: translateY(-0.15rem);
+      }
+    }
+
+  }
+}
