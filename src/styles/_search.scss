@@ -58,6 +58,10 @@
       &:hover {
         transform: translateY(-0.15rem);
       }
+      &.selected {
+        background-color: var(--black);
+        color: var(--white);
+      }
 
       .flightSchedule {
         padding: 1.5rem 2rem;

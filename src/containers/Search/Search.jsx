@@ -37,6 +37,7 @@ const Search = ({ reservation }) => {
     const flightArray = [];
     for (let index = 0; index < 8; index += 1) {
       const flightObject = {
+        id: index,
         takeoff: `${getRandomTime().hour}:${getRandomTime().min}`,
         landing: `${String(Number(getRandomTime().hour) + 3).padStart(2, '0')}:${getRandomTime().min}`,
         airline: getRandomAirline(),
@@ -75,7 +76,7 @@ const Search = ({ reservation }) => {
             <div className="flights">
               {flights.map((flight, index) => (
                 <div
-                  className="flightCard"
+                  className={(flightSchedule?.id === index) ? 'flightCard selected' : 'flightCard'}
                   role="button"
                   onKeyDown={() => {}}
                   onFocus={() => {}}
