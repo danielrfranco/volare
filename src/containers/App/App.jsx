@@ -39,7 +39,7 @@ const App = ({ dispatch }) => {
     <div className="app">
       <Router>
         <div className="container">
-          <Link to={URLS.BASE}>
+          <Link to={URLS.HOME}>
             <img src={Logo} alt="Volare" className="logo" />
           </Link>
         </div>
@@ -52,7 +52,7 @@ const App = ({ dispatch }) => {
           <Route path="/buy">
             <Search />
           </Route>
-          <Route path={URLS.BASE}>
+          <Route path={URLS.HOME}>
             <Home />
           </Route>
         </Switch>

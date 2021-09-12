@@ -1,2 +1,2 @@
-export const BASE = '/';
+export const HOME = '/';
 export const SEARCH = '/search';

@@ -10,3 +10,8 @@ export const createReservation = (reservation) => ({
   date: reservation.date,
   seats: reservation.seats,
 });
+
+export const addReservationToCart = (reservation) => ({
+  type: 'ADD_RESERVATION',
+  reservation,
+});

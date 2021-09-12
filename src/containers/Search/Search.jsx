@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import toMoney from 'number-to-money';
+import { addReservationToCart } from '../../redux/actions';
+import * as URLS from '../../urls';
 
-const Search = ({ reservation }) => {
+const Search = ({ history, dispatch, reservation }) => {
   const [flightSchedule, setFlightSchedule] = useState();
   const [flights, setFlights] = useState([]);
 
@@ -12,6 +15,15 @@ const Search = ({ reservation }) => {
     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
   };
   const date = reservation.date.toLocaleDateString('es', dateOptions);
+
+  const handleSubmit = () => {
+    const newReservation = {
+      ...reservation,
+      ...flightSchedule,
+    };
+    dispatch(addReservationToCart(newReservation));
+    history.push(URLS.HOME);
+  };
 
   useEffect(() => {
     const getRandomTime = () => {
@@ -37,7 +49,7 @@ const Search = ({ reservation }) => {
     const flightArray = [];
     for (let index = 0; index < 8; index += 1) {
       const flightObject = {
-        id: index,
+        id: crypto.randomUUID(),
         takeoff: `${getRandomTime().hour}:${getRandomTime().min}`,
         landing: `${String(Number(getRandomTime().hour) + 3).padStart(2, '0')}:${getRandomTime().min}`,
         airline: getRandomAirline(),
@@ -76,7 +88,7 @@ const Search = ({ reservation }) => {
             <div className="flights">
               {flights.map((flight, index) => (
                 <div
-                  className={(flightSchedule?.id === index) ? 'flightCard selected' : 'flightCard'}
+                  className={(flightSchedule?.id === flight.id) ? 'flightCard selected' : 'flightCard'}
                   role="button"
                   onKeyDown={() => {}}
                   onFocus={() => {}}
@@ -119,7 +131,7 @@ const Search = ({ reservation }) => {
         <div className="confirm">
           <div className="container">
             <p>¿Listo para agregar al carrito?</p>
-            <button type="button" className="continueBtn">Agregar al carrito</button>
+            <button type="button" className="continueBtn" onClick={handleSubmit}>Agregar al carrito</button>
           </div>
         </div>
       )}
@@ -134,10 +146,12 @@ Search.propTypes = {
     date: PropTypes.string.isRequired,
     seats: PropTypes.number.isRequired,
   }),
+  dispatch: PropTypes.func,
+  history: PropTypes.any,
 };
 
 const mapStateToProps = (({ reservation }) => ({
   reservation,
 }));
 
-export default connect(mapStateToProps)(Search);
+export default withRouter(connect(mapStateToProps)(Search));
