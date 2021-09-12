@@ -12,11 +12,15 @@ import * as Yup from 'yup';
 import { removeReservationFromCart } from '../../redux/actions';
 
 const Reservations = ({ dispatch, reservationsCart = [] }) => {
-  const total = reservationsCart.length > 1
+  const dateOptions = {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+  };
+
+  const total = reservationsCart.length > 0
     ? reservationsCart
       .map((item) => item.seats * item.price)
       .reduce((a, b) => a + b)
-    : reservationsCart[0].price * reservationsCart[0].seats;
+    : 0;
 
   return (
     <div className="reservations">
@@ -43,6 +47,9 @@ const Reservations = ({ dispatch, reservationsCart = [] }) => {
                   </button>
 
                   <div className="flightSchedule">
+                    <div className="date">
+                      {flight.date.toLocaleDateString('es', dateOptions)}
+                    </div>
 
                     <div className="airline">
                       {flight.airline}
