@@ -27,11 +27,11 @@ const Search = ({ history, dispatch, reservation }) => {
 
   useEffect(() => {
     const getRandomTime = () => {
-      const hrs = Math.round(Math.random() * (18 - 6) + 6);
-      const mins = Math.round(Math.random() * 60);
+      const hour = Math.round(Math.random() * (18 - 6) + 6);
+      const min = Math.round(Math.random() * 60);
       return {
-        hour: String(hrs).padStart(2, '0'),
-        min: String(mins).padStart(2, '0'),
+        hour,
+        min,
       };
     };
     const getRandomAirline = () => {
@@ -48,10 +48,15 @@ const Search = ({ history, dispatch, reservation }) => {
 
     const flightArray = [];
     for (let index = 0; index < 8; index += 1) {
+      const takeoff = getRandomTime();
+      const landing = {
+        hour: (takeoff.hour + 3) < 24 ? takeoff.hour + 3 : 23,
+        min: (takeoff.min + 20) < 60 ? takeoff.min + 20 : 58,
+      };
       const flightObject = {
         id: crypto.randomUUID(),
-        takeoff: `${getRandomTime().hour}:${getRandomTime().min}`,
-        landing: `${String(Number(getRandomTime().hour) + 3).padStart(2, '0')}:${getRandomTime().min}`,
+        takeoff: `${String(takeoff.hour).padStart(2, '0')}:${String(takeoff.min).padStart(2, '0')}`,
+        landing: `${String(landing.hour).padStart(2, '0')}:${String(landing.min).padStart(2, '0')}`,
         airline: getRandomAirline(),
         price: getRandomPrice(),
         origin: reservation.origin,
