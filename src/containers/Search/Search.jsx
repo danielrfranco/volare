@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { FlightCard } from '../../components';
-import { addReservationToCart } from '../../redux/actions';
+import { addReservationToCart, emptyReservation } from '../../redux/actions';
 import * as URLS from '../../urls';
 
 const Search = ({ history, dispatch, reservation }) => {
@@ -21,6 +21,7 @@ const Search = ({ history, dispatch, reservation }) => {
       ...flightSchedule,
     };
     dispatch(addReservationToCart(newFlightSchedule));
+    dispatch(emptyReservation());
     history.push(URLS.HOME);
   };
 

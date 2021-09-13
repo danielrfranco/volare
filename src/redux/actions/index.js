@@ -11,6 +11,10 @@ export const createReservation = (reservation) => ({
   seats: reservation.seats,
 });
 
+export const emptyReservation = () => ({
+  type: 'EMPTY_RESERVATION',
+});
+
 export const addReservationToCart = (reservation) => ({
   type: 'ADD_RESERVATION',
   reservation,

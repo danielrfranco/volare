@@ -9,7 +9,7 @@ import {
 import * as Yup from 'yup';
 
 import { FlightCard } from '../../components';
-import { removeReservationFromCart, completeOrder } from '../../redux/actions';
+import { removeReservationFromCart, completeOrder, emptyCart } from '../../redux/actions';
 import * as URLS from '../../urls';
 
 const Reservations = ({
@@ -78,6 +78,7 @@ const Reservations = ({
                   reservations: [...cart],
                 };
                 dispatch(completeOrder(newOrder));
+                dispatch(emptyCart());
                 history.push(URLS.CONFIRMATION);
               }}
             >

@@ -8,6 +8,8 @@ const reservation = (state = {}, action) => {
         date: action.date,
         seats: action.seats,
       };
+    case 'EMPTY_RESERVATION':
+      return {};
     default:
       return state;
   }
