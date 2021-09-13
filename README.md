@@ -1,4 +1,4 @@
-# Volare Ap
+# Volare App
 
 ## Available Scripts
 
