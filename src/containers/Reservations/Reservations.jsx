@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import toMoney from 'number-to-money';
 import {
   Formik, Field, Form, ErrorMessage,
@@ -35,14 +35,21 @@ const Reservations = ({
               Mis reservaciones
             </h2>
             <div className="flights">
-              {order.status === 'pending' && reservationsCart.map((flight) => (
+              {order.status === 'pending' ? reservationsCart.map((flight) => (
                 <FlightCard
                   flight={flight}
                   onDelete={() => {
                     dispatch(removeReservationFromCart(flight.id));
                   }}
                 />
-              ))}
+              )) : (
+                <>
+                  <p>No hay nada aquí todavía</p>
+                  <Link to={URLS.HOME}>
+                    <button type="button" className="backBtn">Ir al Inicio</button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
 

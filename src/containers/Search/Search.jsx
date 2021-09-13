@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
-import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
-import toMoney from 'number-to-money';
+import { withRouter, Link } from 'react-router-dom';
 import { FlightCard } from '../../components';
 import { addReservationToCart } from '../../redux/actions';
 import * as URLS from '../../urls';
@@ -15,7 +13,6 @@ const Search = ({ history, dispatch, reservation }) => {
   const dateOptions = {
     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
   };
-  const date = reservation.date.toLocaleDateString('es', dateOptions);
 
   const handleSubmit = () => {
     const newReservation = {
@@ -66,44 +63,60 @@ const Search = ({ history, dispatch, reservation }) => {
       <div className="container">
         <div className="schedules-grid">
 
-          <div className="details">
-            <div className="meta">
-              <span>Origen:</span>
-              {reservation.origin}
-            </div>
-            <div className="meta">
-              <span>Destino:</span>
-              {reservation.destination}
-            </div>
-            <div className="meta">
-              <span>Asientos:</span>
-              {reservation.seats}
-            </div>
-          </div>
+          {reservation.origin && reservation.destination && reservation.seats ? (
+            <>
+              <div className="details">
+                <div className="meta">
+                  <span>Origen:</span>
+                  {reservation.origin}
+                </div>
+                <div className="meta">
+                  <span>Destino:</span>
+                  {reservation.destination}
+                </div>
+                <div className="meta">
+                  <span>Asientos:</span>
+                  {reservation.seats}
+                </div>
+              </div>
 
-          <div className="available">
-            <h2>
-              {'Vuelos para fecha: '}
-              <span>{date}</span>
-            </h2>
-            <div className="flights">
-              {flights.map((flight, index) => (
-                <FlightCard
-                  flight={flight}
-                  className={(flightSchedule?.id === flight.id) ? 'selected' : ''}
-                  role="button"
-                  onKeyDown={() => {}}
-                  onFocus={() => {}}
-                  tabIndex={index}
-                  onClick={() => {
-                    setFlightSchedule({
-                      ...flight,
-                    });
-                  }}
-                />
-              ))}
-            </div>
-          </div>
+              <div className="available">
+                <h2>
+                  {'Vuelos para fecha: '}
+                  {reservation.date && (
+                    <span>{reservation.date.toLocaleDateString('es', dateOptions)}</span>
+                  )}
+                </h2>
+                <div className="flights">
+                  {flights.map((flight, index) => (
+                    <FlightCard
+                      flight={flight}
+                      className={(flightSchedule?.id === flight.id) ? 'selected' : ''}
+                      role="button"
+                      onKeyDown={() => {}}
+                      onFocus={() => {}}
+                      tabIndex={index}
+                      onClick={() => {
+                        setFlightSchedule({
+                          ...flight,
+                        });
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </>
+          )
+            : (
+              <div className="emptyState">
+
+                <h2>No haz hecho una búsqueda aún</h2>
+                <Link to={URLS.HOME}>
+                  <button type="button" className="backBtn">Ir al Inicio</button>
+                </Link>
+              </div>
+            )}
+
         </div>
       </div>
 

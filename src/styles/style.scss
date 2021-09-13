@@ -39,6 +39,10 @@ button {
   &:hover {
     transform: translateY(-0.15rem);
   }
+  &.backBtn {
+    padding: 1rem 1.5rem;
+    background-color: var(--palm);
+  }
 }
 
 .logo {
