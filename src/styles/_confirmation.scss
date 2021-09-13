@@ -1,0 +1,34 @@
+.confirmation {
+  .confirmationTitle {
+    text-align: center;
+  }
+
+  .confirmationData {
+    display: grid;
+
+    .buyerDetails {
+      display: flex;
+      padding: 1.5rem 0;
+      border-top: solid 1px var(--black);
+      border-bottom: solid 1px var(--black);
+      flex-direction: column;
+      @media (min-width: $tablet) {
+        flex-direction: row;
+        justify-content: space-around;
+      }
+
+      label {
+        span {
+          font-weight: bold;
+          margin-left: 0.5rem;
+        }
+      }
+    }
+
+    .flights {
+      margin-top: 1.5rem;
+      display: grid;
+      gap: 1.5rem;
+    }
+  }
+}

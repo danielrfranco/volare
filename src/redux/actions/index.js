@@ -20,3 +20,13 @@ export const removeReservationFromCart = (reservationId) => ({
   type: 'REMOVE_RESERVATION',
   reservationId,
 });
+
+export const payOrder = ({
+  name, lastName, address, email,
+}) => ({
+  type: 'PAY_ORDER',
+  name,
+  lastName,
+  address,
+  email,
+});

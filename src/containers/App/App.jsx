@@ -12,13 +12,14 @@ import {
 import Home from '../Home/Home';
 import Search from '../Search/Search';
 import Reservations from '../Reservations/Reservations';
+import Confirmation from '../Confirmation/Confirmation';
 import { populateDestinations } from '../../redux/actions';
 import { NavBar, Cart } from '../../components';
 import * as URLS from '../../urls';
 
 import Logo from '../../images/logo_white.png';
 
-const App = ({ reservationsCart = [], dispatch }) => {
+const App = ({ reservationsCart = [], dispatch, orderStatus = 'pending' }) => {
   useEffect(async () => {
     const getDestinations = async () => {
       try {
@@ -45,7 +46,7 @@ const App = ({ reservationsCart = [], dispatch }) => {
               <img src={Logo} alt="Volare" className="logo" />
             </Link>
             <Link to={URLS.RESERVATIONS}>
-              <Cart items={reservationsCart.length} />
+              <Cart items={orderStatus === 'pending' ? reservationsCart.length : 0} />
             </Link>
           </div>
         </header>
@@ -57,6 +58,9 @@ const App = ({ reservationsCart = [], dispatch }) => {
           </Route>
           <Route path={URLS.RESERVATIONS}>
             <Reservations />
+          </Route>
+          <Route path={URLS.CONFIRMATION}>
+            <Confirmation />
           </Route>
           <Route path={URLS.HOME}>
             <Home />
@@ -71,10 +75,12 @@ const App = ({ reservationsCart = [], dispatch }) => {
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
   reservationsCart: PropTypes.array,
+  orderStatus: PropTypes.string,
 };
 
 const mapStateToProps = (({ order }) => ({
   reservationsCart: order.reservationsCart,
+  orderStatus: order.status,
 }));
 
 export default connect(mapStateToProps)(App);

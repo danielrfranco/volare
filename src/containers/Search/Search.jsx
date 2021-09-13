@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import toMoney from 'number-to-money';
+import { FlightCard } from '../../components';
 import { addReservationToCart } from '../../redux/actions';
 import * as URLS from '../../urls';
 
@@ -87,8 +88,9 @@ const Search = ({ history, dispatch, reservation }) => {
             </h2>
             <div className="flights">
               {flights.map((flight, index) => (
-                <div
-                  className={(flightSchedule?.id === flight.id) ? 'flightCard selected' : 'flightCard'}
+                <FlightCard
+                  flight={flight}
+                  className={(flightSchedule?.id === flight.id) ? 'selected' : ''}
                   role="button"
                   onKeyDown={() => {}}
                   onFocus={() => {}}
@@ -98,33 +100,7 @@ const Search = ({ history, dispatch, reservation }) => {
                       ...flight,
                     });
                   }}
-                >
-                  <div className="flightSchedule">
-
-                    <div className="airline">
-                      {flight.airline}
-                    </div>
-                    <div className="takeoff">
-                      <span>{reservation.origin}</span>
-                      {flight.takeoff}
-                    </div>
-                    <ArrowRightAltIcon />
-                    <div className="landing">
-                      <span>{reservation.destination}</span>
-                      {flight.landing}
-                    </div>
-                  </div>
-
-                  <div className="price">
-                    <div className="amout">
-                      MXN$
-                      {' '}
-                      <span>{toMoney(flight.price)}</span>
-                      {' '}
-                      c/u
-                    </div>
-                  </div>
-                </div>
+                />
               ))}
             </div>
           </div>

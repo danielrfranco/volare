@@ -2,25 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
-import DeleteIcon from '@material-ui/icons/Delete';
 import toMoney from 'number-to-money';
 import {
   Formik, Field, Form, ErrorMessage,
 } from 'formik';
 import * as Yup from 'yup';
-import { removeReservationFromCart } from '../../redux/actions';
+
+import { FlightCard } from '../../components';
+import { removeReservationFromCart, payOrder } from '../../redux/actions';
+import * as URLS from '../../urls';
 
 const Reservations = ({
   dispatch,
   order,
+  history,
 }) => {
   const { reservationsCart = [] } = order;
-  const dateOptions = {
-    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-  };
 
-  const total = reservationsCart.length > 0
+  const total = reservationsCart.length > 0 && order.status === 'pending'
     ? reservationsCart
       .map((item) => item.seats * item.price)
       .reduce((a, b) => a + b)
@@ -36,52 +35,13 @@ const Reservations = ({
               Mis reservaciones
             </h2>
             <div className="flights">
-              {reservationsCart.map((flight) => (
-                <div
-                  className="flightCard"
-                >
-                  <button
-                    type="button"
-                    className="deleteBtn"
-                    onClick={() => {
-                      dispatch(removeReservationFromCart(flight.id));
-                    }}
-                  >
-                    <DeleteIcon />
-                  </button>
-
-                  <div className="flightSchedule">
-                    <div className="date">
-                      {flight.date.toLocaleDateString('es', dateOptions)}
-                    </div>
-
-                    <div className="airline">
-                      {flight.airline}
-                    </div>
-                    <div className="takeoff">
-                      <span>{flight.origin}</span>
-                      {flight.takeoff}
-                    </div>
-                    <ArrowRightAltIcon />
-                    <div className="landing">
-                      <span>{flight.destination}</span>
-                      {flight.landing}
-                    </div>
-                  </div>
-
-                  <div className="price">
-                    <div className="small">{`${flight.seats} asiento(s)`}</div>
-
-                    <div className="amout">
-                      MXN$
-                      {' '}
-                      <span>{toMoney(flight.price)}</span>
-                      {' '}
-                      c/u
-                    </div>
-
-                  </div>
-                </div>
+              {order.status === 'pending' && reservationsCart.map((flight) => (
+                <FlightCard
+                  flight={flight}
+                  onDelete={() => {
+                    dispatch(removeReservationFromCart(flight.id));
+                  }}
+                />
               ))}
             </div>
           </div>
@@ -108,6 +68,8 @@ const Reservations = ({
               })}
               onSubmit={(values, { setSubmitting }) => {
                 setSubmitting(false);
+                dispatch(payOrder({ ...values }));
+                history.push(URLS.CONFIRMATION);
               }}
             >
               {({ isSubmitting }) => (
@@ -160,6 +122,7 @@ const Reservations = ({
 Reservations.propTypes = {
   order: PropTypes.object,
   dispatch: PropTypes.func,
+  history: PropTypes.any,
 };
 
 const mapStateToProps = (({ order }) => ({

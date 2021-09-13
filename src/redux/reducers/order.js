@@ -4,6 +4,7 @@ const order = (state = {}, action) => {
     case 'ADD_RESERVATION':
       return {
         ...state,
+        status: 'pending',
         reservationsCart: [
           ...reservationsCart,
           action.reservation,
@@ -18,6 +19,15 @@ const order = (state = {}, action) => {
         ],
       };
     }
+    case 'PAY_ORDER':
+      return {
+        ...state,
+        status: 'payed',
+        name: action.name,
+        lastName: action.lastName,
+        address: action.address,
+        email: action.email,
+      };
     default:
       return state;
   }
