@@ -1,0 +1,18 @@
+.home {
+  .form-wrapper {
+    background-color: var(--sand);
+    padding: 2.5rem 0;
+
+    .container {
+      padding: 0.5rem;
+      border-radius: 0.6rem;
+      border: solid 1px var(--black);
+      background-color: var(--white);
+    }
+  }
+
+  .homeBlur {
+    width: 100%;
+    height: auto;
+  }
+}

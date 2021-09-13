@@ -1,7 +1,8 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "jest": true
     },
     "extends": [
         "plugin:react/recommended",
@@ -18,5 +19,11 @@
         "react"
     ],
     "rules": {
+        "import/prefer-default-export": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/require-default-props": "off",
+        "no-unused-vars": "warn",
+        "jsx-a11y/label-has-associated-control": "off",
+        "react/forbid-prop-types": "off"
     }
 }
