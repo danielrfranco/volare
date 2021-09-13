@@ -8,8 +8,7 @@ const Confirmation = ({
   lastName,
   address,
   email,
-  reservationsCart,
-  status,
+  reservations,
 }) => (
   <div className="confirmation">
     <div className="container">
@@ -36,7 +35,7 @@ const Confirmation = ({
 
         <div className="flights">
           <h3>Reservaciones</h3>
-          {status === 'payed' && reservationsCart.map((flight) => (
+          {reservations.map((flight) => (
             <FlightCard
               flight={flight}
             />
@@ -52,21 +51,19 @@ Confirmation.propTypes = {
   lastName: PropTypes.string,
   address: PropTypes.string,
   email: PropTypes.string,
-  status: PropTypes.string,
-  reservationsCart: PropTypes.array,
+  reservations: PropTypes.array,
 };
 
 const mapStateToProps = (({
   order: {
-    name, lastName, address, email, reservationsCart, status,
+    name, lastName, address, email, reservations,
   },
 }) => ({
   name,
   lastName,
   address,
   email,
-  reservationsCart,
-  status,
+  reservations,
 }));
 
 export default connect(mapStateToProps)(Confirmation);

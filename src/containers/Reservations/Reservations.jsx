@@ -9,18 +9,16 @@ import {
 import * as Yup from 'yup';
 
 import { FlightCard } from '../../components';
-import { removeReservationFromCart, payOrder } from '../../redux/actions';
+import { removeReservationFromCart, completeOrder } from '../../redux/actions';
 import * as URLS from '../../urls';
 
 const Reservations = ({
   dispatch,
-  order,
+  cart = [],
   history,
 }) => {
-  const { reservationsCart = [] } = order;
-
-  const total = reservationsCart.length > 0 && order.status === 'pending'
-    ? reservationsCart
+  const total = cart.length > 0
+    ? cart
       .map((item) => item.seats * item.price)
       .reduce((a, b) => a + b)
     : 0;
@@ -35,7 +33,7 @@ const Reservations = ({
               Mis reservaciones
             </h2>
             <div className="flights">
-              {order.status === 'pending' ? reservationsCart.map((flight) => (
+              {cart.length > 0 ? cart.map((flight) => (
                 <FlightCard
                   flight={flight}
                   onDelete={() => {
@@ -75,7 +73,11 @@ const Reservations = ({
               })}
               onSubmit={(values, { setSubmitting }) => {
                 setSubmitting(false);
-                dispatch(payOrder({ ...values }));
+                const newOrder = {
+                  ...values,
+                  reservations: [...cart],
+                };
+                dispatch(completeOrder(newOrder));
                 history.push(URLS.CONFIRMATION);
               }}
             >
@@ -127,13 +129,13 @@ const Reservations = ({
 };
 
 Reservations.propTypes = {
-  order: PropTypes.object,
+  cart: PropTypes.arrayOf(PropTypes.object),
   dispatch: PropTypes.func,
   history: PropTypes.any,
 };
 
-const mapStateToProps = (({ order }) => ({
-  order,
+const mapStateToProps = (({ cart }) => ({
+  cart,
 }));
 
 export default withRouter(connect(mapStateToProps)(Reservations));

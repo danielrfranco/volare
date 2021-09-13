@@ -19,7 +19,9 @@ import * as URLS from '../../urls';
 
 import Logo from '../../images/logo_white.png';
 
-const App = ({ reservationsCart = [], dispatch, orderStatus = 'pending' }) => {
+const App = ({
+  dispatch, cart = [],
+}) => {
   useEffect(async () => {
     const getDestinations = async () => {
       try {
@@ -46,7 +48,7 @@ const App = ({ reservationsCart = [], dispatch, orderStatus = 'pending' }) => {
               <img src={Logo} alt="Volare" className="logo" />
             </Link>
             <Link to={URLS.RESERVATIONS}>
-              <Cart items={orderStatus === 'pending' ? reservationsCart.length : 0} />
+              <Cart items={cart.length} />
             </Link>
           </div>
         </header>
@@ -74,13 +76,11 @@ const App = ({ reservationsCart = [], dispatch, orderStatus = 'pending' }) => {
 
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  reservationsCart: PropTypes.array,
-  orderStatus: PropTypes.string,
+  cart: PropTypes.arrayOf(PropTypes.object),
 };
 
-const mapStateToProps = (({ order }) => ({
-  reservationsCart: order.reservationsCart,
-  orderStatus: order.status,
+const mapStateToProps = (({ cart }) => ({
+  cart,
 }));
 
 export default connect(mapStateToProps)(App);

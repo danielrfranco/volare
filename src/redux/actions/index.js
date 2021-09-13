@@ -21,12 +21,17 @@ export const removeReservationFromCart = (reservationId) => ({
   reservationId,
 });
 
-export const payOrder = ({
-  name, lastName, address, email,
+export const emptyCart = () => ({
+  type: 'EMPTY_CART',
+});
+
+export const completeOrder = ({
+  name, lastName, address, email, reservations,
 }) => ({
-  type: 'PAY_ORDER',
+  type: 'COMPLETE_ORDER',
   name,
   lastName,
   address,
   email,
+  reservations,
 });

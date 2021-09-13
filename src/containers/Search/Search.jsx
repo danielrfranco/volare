@@ -15,11 +15,12 @@ const Search = ({ history, dispatch, reservation }) => {
   };
 
   const handleSubmit = () => {
-    const newReservation = {
-      ...reservation,
+    const newFlightSchedule = {
+      date: reservation.date,
+      seats: reservation.seats,
       ...flightSchedule,
     };
-    dispatch(addReservationToCart(newReservation));
+    dispatch(addReservationToCart(newFlightSchedule));
     history.push(URLS.HOME);
   };
 
@@ -52,6 +53,8 @@ const Search = ({ history, dispatch, reservation }) => {
         landing: `${String(Number(getRandomTime().hour) + 3).padStart(2, '0')}:${getRandomTime().min}`,
         airline: getRandomAirline(),
         price: getRandomPrice(),
+        origin: reservation.origin,
+        destination: reservation.destination,
       };
       flightArray.push(flightObject);
     }

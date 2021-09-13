@@ -23,16 +23,6 @@ const FlightCard = ({
           </div>
         )}
 
-        {onDelete && (
-          <button
-            type="button"
-            className="deleteBtn"
-            onClick={onDelete}
-          >
-            <DeleteIcon />
-          </button>
-        )}
-
         {flight.airline && (
           <div className="airline">
             {flight.airline}
@@ -51,6 +41,16 @@ const FlightCard = ({
       </div>
 
       <div className="price">
+        {onDelete && (
+        <button
+          type="button"
+          className="deleteBtn"
+          onClick={onDelete}
+        >
+          <DeleteIcon />
+        </button>
+        )}
+
         {flight.seats && (
           <div className="small">{`${flight.seats} asiento(s)`}</div>
         )}
