@@ -25,7 +25,7 @@ const App = ({
   useEffect(async () => {
     const getDestinations = async () => {
       try {
-        const destinationsResponse = await axios.get('https://restcountries.com/v2/region/americas?fields=name;capital;alpha2Code');
+        const destinationsResponse = await axios.get('https://restcountries.com/v2/region/americas?fields=name,capital,alpha2Code');
         return destinationsResponse.data;
       } catch (error) {
         return 0;
